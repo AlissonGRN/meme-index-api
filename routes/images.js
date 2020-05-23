@@ -33,10 +33,30 @@ router.post("/", async (req, res) => {
 });
 
 // UPDATE one
-router.patch("/:id", (req, res) => {});
+router.patch("/:id", getImage, async (req, res) => {
+	if (req.body.name != null) {
+		res.image.name = req.body.name
+	}
+	if (req.body.url != null) {
+		res.image.name = req.body.url
+	}
+	try {
+		const updatedImage = await res.image.save()
+		res.json(updatedImage)
+	} catch (error) {
+		res.status(400).json({message: error.message})
+	}
+});
 
 // DELETE one
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", getImage, async (req, res) => {
+	try {
+		await res.image.remove()
+		res.json({message: 'Image Deleted'})
+	} catch (error) {
+		res.status(500).json({message: error.message})
+	}
+});
 
 // getImage midleware
 async function getImage(req, res, next) {
@@ -44,7 +64,7 @@ async function getImage(req, res, next) {
 	try {
 		image = await Image.findById(req.params.id)
 		if (image == null) {
-			return res.status(404).send({message: "Cannot find subscriber"})
+			return res.status(404).send({message: "Cannot find image"})
 		}
 	} catch (error) {
 		return res.status(500).json({message: error.message})
