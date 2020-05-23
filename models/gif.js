@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const imageSchema = new mongoose.Schema({
+const gifSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -16,4 +16,5 @@ const imageSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Image", imageSchema);
+
+module.exports = mongoose.model('Gif', gifSchema)

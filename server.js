@@ -16,7 +16,9 @@ db.once("open", () => console.log("Conected to Database"));
 
 app.use(express.json());
 
-const imageRouter = require('./routes/images')
-app.use('/images', imageRouter)
+const imageRouter = require("./routes/images");
+app.use("/images", imageRouter);
+const gifRouter = require("./routes/gifs");
+app.use("/gifs", gifRouter);
 
 app.listen(3000, () => console.log("Server Started"));
